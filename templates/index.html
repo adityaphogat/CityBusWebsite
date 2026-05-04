@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Bus Timetables - Gurugram</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1>🚌 City Bus Timetables</h1>
+            <p>Find bus schedules across Gurugram, Haryana</p>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="hero">
+            <h2>Welcome to City Bus Gurugram</h2>
+            <p>Explore the latest bus timetables and schedules for all routes across the city</p>
+        </section>
+
+        <section class="buses-grid">
+            <h3>🚌 Available Bus Routes</h3>
+            <div class="bus-list">
+                {% for bus_id, bus in buses.items() %}
+                <div class="bus-card">
+                    <div class="bus-header">
+                        <h4>{{ bus_id }}</h4>
+                        <span class="operator">{{ bus.operator }}</span>
+                    </div>
+                    <p class="route"><strong>Route:</strong> {{ bus.route }}</p>
+                    <p class="schedule-count">{{ bus.timetable|length }} schedules daily</p>
+                    <a href="/bus/{{ bus_id }}" class="btn">View Schedule</a>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 City Bus Gurugram. All rights reserved.</p>
+    </footer>
+</body>
+</html>
