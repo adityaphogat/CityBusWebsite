@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ bus_id }} - City Bus Timetables</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1>🚌 City Bus Gurugram</h1>
+            <p>Detailed Timetable</p>
+        </div>
+    </nav>
+
+    <main class="container">
+        <a href="/" class="back-btn">← Back to Routes</a>
+        
+        <section class="bus-details">
+            <div class="bus-info">
+                <h2>{{ bus_id }}</h2>
+                <p><strong>Operator:</strong> {{ bus.operator }}</p>
+                <p><strong>Route:</strong> {{ bus.route }}</p>
+            </div>
+
+            <section class="timetable">
+                <h3>Daily Schedule</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Departure Time</th>
+                            <th>Arrival Time</th>
+                            <th>Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for schedule in bus.timetable %}
+                        <tr>
+                            <td>{{ schedule.departure }}</td>
+                            <td>{{ schedule.arrival }}</td>
+                            <td>{{ (schedule.arrival | int - schedule.departure | int) if ':' not in schedule.departure else '45 mins' }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 City Bus Gurugram. All rights reserved.</p>
+    </footer>
+</body>
+</html>
